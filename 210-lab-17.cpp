@@ -9,10 +9,10 @@ void output(Node*);
 void addToFront(Node*&, int);
 void deleteNode(Node*&, int);
 void insertNode(Node*&, int);
+void deleteList(Node*&);
 
 int main() {
 	Node* head = nullptr;
-	int count = 0;
 	
 	// create a linked list of size SIZE with random numbers 0-99
 	for (int i = 0; i < SIZE; i++) {
@@ -40,13 +40,7 @@ int main() {
 	output(head);
 
 	// deleting the linked list
-	current = head;
-	while (current) {
-		head = current->next;
-		delete current;
-		current = head;
-	}
-	head = nullptr;
+	deleteList(head);
 	output(head);
 	return 0;
 }
@@ -101,7 +95,6 @@ void deleteNode(Node*& head, int entry) {
 }
 
 void insertNode(Node*& head, int entry) {
-	int count = 1;
 	Node* current = head;
 	Node* prev = nullptr; // reset prev to nullptr for same reason
 	for (int i = 0; i < entry; i++) {
@@ -119,4 +112,14 @@ void insertNode(Node*& head, int entry) {
 	else {
 		prev->next = newnode;
 	}
+}
+
+void deleteList(Node*& head) {
+	Node* current = head;
+	while (current) {
+		head = current->next;
+		delete current;
+		current = head;
+	}
+	head = nullptr;
 }
