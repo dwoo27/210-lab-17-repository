@@ -32,32 +32,13 @@ int main() {
 	
 	// insert a node
 	cout << "After which node to insert 10000? " << endl;
-	count = 1;
-	current = head;
-	while (current) {
-		cout << "[" << count++ << "] " << current->value << endl;
-		current = current->next;
-	}
+	output(head);
+	
 	cout << "Choice --> ";
 	cin >> entry;
-	current = head;
-	prev = nullptr; // reset prev to nullptr for same reason
-	for (int i = 0; i < entry; i++) {
-		prev = current;
-		current = current->next;
-	}
-	// at this point, insert a node between prev and current
-	Node* newnode = new Node;
-	newnode->value = 10000;
-	newnode->next = current;
-	if (prev == nullptr) {
-		// inserting before the head
-		head = newnode;
-	}
-	else {
-		prev->next = newnode;
-	}
+	insertNode(head, entry);
 	output(head);
+
 	// deleting the linked list
 	current = head;
 	while (current) {
@@ -88,11 +69,11 @@ void addToFront(Node*& head, int val){
 	if (!head) {
 		head = newVal;
 		newVal->next = nullptr;
-		newVal->value = tmp_val;
+		newVal->value = val;
 	}
 	else {
 		newVal->next = head;
-		newVal->value = tmp_val;
+		newVal->value = val;
 		head = newVal;
 	}
 }
@@ -116,5 +97,26 @@ void deleteNode(Node*& head, int entry) {
 		}
 		delete current;
 		current = nullptr;
+	}
+}
+
+void insertNode(Node*& head, int entry) {
+	int count = 1;
+	Node* current = head;
+	Node* prev = nullptr; // reset prev to nullptr for same reason
+	for (int i = 0; i < entry; i++) {
+		prev = current;
+		current = current->next;
+	}
+	// at this point, insert a node between prev and current
+	Node* newnode = new Node;
+	newnode->value = 10000;
+	newnode->next = current;
+	if (prev == nullptr) {
+		// inserting before the head
+		head = newnode;
+	}
+	else {
+		prev->next = newnode;
 	}
 }
